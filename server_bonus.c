@@ -29,6 +29,10 @@ void    handle_signal(int signal, siginfo_t *info, void *context)
 	bit_index++;
 	if (bit_index == 8)
 	{
+        if (current_char == '\0')
+		{
+			kill(info->si_pid, SIGUSR1);
+		}
 		write(1, &current_char, 1);
 		bit_index = 0;
 		current_char = 0;
