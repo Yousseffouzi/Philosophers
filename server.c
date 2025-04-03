@@ -44,6 +44,7 @@ int main(int ac, char **av)
     int pid;
     struct sigaction sa;
 
+    (void)(**av);
     sa.sa_sigaction = handle_signal;
     sa.sa_flags = SA_SIGINFO;
     sigemptyset(&sa.sa_mask);
