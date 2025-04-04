@@ -13,9 +13,9 @@
 CC      = cc
 CFLAGS  = -Wall -Wextra -Werror
 SRC     = client.c server.c utils.c
-BONUS_SRC = bonus/client_bonus.c bonus/server_bonus.c
+BONUS_SRC = client_bonus.c server_bonus.c
 TARGETS = client server
-BTARGETS = bonus/client_bonus bonus/server_bonus
+BTARGETS = client_bonus server_bonus
 BDIR    = bonus
 
 all: $(TARGETS)
@@ -28,20 +28,14 @@ server: server.o utils.o
 
 bonus: $(BTARGETS)
 
-bonus/client_bonus: bonus/client_bonus.o
+client_bonus: client_bonus.o
 	$(CC) $(CFLAGS) utils.o $< -o $@
 
-bonus/server_bonus: bonus/server_bonus.o
+server_bonus: server_bonus.o
 	$(CC) $(CFLAGS) utils.o $< -o $@
-
-%.o: %.c minitalk.h
-	$(CC) $(CFLAGS) -c $< -o $@
-
-bonus/%.o: bonus/%.c minitalk.h
-	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f client.o server.o utils.o bonus/client_bonus.o bonus/server_bonus.o
+	rm -f client.o server.o utils.o client_bonus.o server_bonus.o
 
 fclean: clean
 	rm -f $(TARGETS) $(BTARGETS) clean
