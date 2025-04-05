@@ -11,13 +11,14 @@
 /* ************************************************************************** */
 
 #include "minitalk.h"
+
 void	handle_signal(int signal, siginfo_t *info, void *context)
 {
 	static unsigned char	current_char;
 	static int				bit_index;
 	static pid_t			pid;
 
-	(void) context;
+	(void)context;
 	if (pid != info->si_pid)
 	{
 		pid = info->si_pid;
