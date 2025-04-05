@@ -12,6 +12,19 @@
 
 #include "minitalk.h"
 
+static int g_sas = 0;
+
+void handler(int signal, siginfo_t *info, void *context)
+{
+	(void)info;
+	(void)context;
+	if (signal == SIGUSR1)
+		g_sas = 1;
+	else if (signal == SIGUSR2)
+		write(1,"message recived",15);
+		
+}
+
 void	send_signal(int pid, unsigned char character)
 {
 	int				i;
@@ -21,6 +34,7 @@ void	send_signal(int pid, unsigned char character)
 	temp_char = character;
 	while (i > 0)
 	{
+		g_sas = 0;
 		i--;
 		temp_char = character >> i;
 		if (temp_char % 2 == 0)
@@ -33,7 +47,9 @@ void	send_signal(int pid, unsigned char character)
 			if (kill(pid, SIGUSR1) == -1)
 				ft_putstr_fd("Error: Failed to send signal\n", 2);
 		}
-		usleep(500);
+		while (!g_sas)
+			pause();
+		usleep(100);
 	}
 }
 
@@ -42,6 +58,14 @@ int	main(int argc, char *argv[])
 	int			server_pid;
 	const char	*message;
 	int			i;
+	struct sigaction	sa;
+
+
+	sa.sa_sigaction = handler;
+	sa.sa_flags = SA_SIGINFO | SA_RESTART;
+	sigemptyset(&sa.sa_mask);
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
 
 	if (argc != 3)
 		ft_putstr_fd("Usage: ./client <pid> <message>\n", 2);
@@ -53,6 +77,6 @@ int	main(int argc, char *argv[])
 	while (message[i])
 		send_signal(server_pid, message[i++]);
 	send_signal(server_pid, '\n');
-	ft_putstr_fd("message is sent\n", 1);
+	send_signal(server_pid, '\0');
 	return (0);
 }

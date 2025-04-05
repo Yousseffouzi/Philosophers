@@ -29,12 +29,16 @@ void	handle_signal(int signal, siginfo_t *info, void *context)
 	bit_index++;
 	if (bit_index == 8)
 	{
+		if (current_char == '\0')
+			kill(info->si_pid, SIGUSR2);
 		write(1, &current_char, 1);
 		bit_index = 0;
 		current_char = 0;
 	}
 	else
 		current_char <<= 1;
+	kill(info->si_pid, SIGUSR1);
+	usleep(100);
 }
 
 int	main(int ac, char **av)
@@ -47,17 +51,12 @@ int	main(int ac, char **av)
 	sa.sa_flags = SA_SIGINFO;
 	sigemptyset(&sa.sa_mask);
 	pid = getpid();
-	if (ac == 1)
+	ft_putnbr_fd(pid, 1);
+	ft_putchar_fd('\n', 1);
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
+	while (1337)
 	{
-		ft_putnbr_fd(pid, 1);
-		ft_putchar_fd('\n', 1);
-		sigaction(SIGUSR1, &sa, NULL);
-		sigaction(SIGUSR2, &sa, NULL);
-		while (1337)
-		{
-			pause();
-		}
+		pause();
 	}
-	else
-		ft_putstr_fd("Input Error < no Input necessary >", 2);
 }

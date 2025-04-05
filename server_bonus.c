@@ -31,7 +31,7 @@ void	handle_signal(int signal, siginfo_t *info, void *context)
 	{
 		if (current_char == '\0')
 		{
-			kill(info->si_pid, SIGUSR1);
+			kill(info->si_pid, SIGUSR2);
 		}
 		write(1, &current_char, 1);
 		bit_index = 0;
@@ -46,8 +46,10 @@ int	main(void)
 	struct sigaction	sa;
 
 	sa.sa_sigaction = handle_signal;
+	sa.sa_flags = SA_SIGINFO;
+	sigemptyset(&sa.sa_mask);
 	ft_putnbr_fd(getpid(), 1);
-	write(1, "\n", 1);
+	ft_putchar_fd('\n',1);
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
 	while (1)

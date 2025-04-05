@@ -13,10 +13,9 @@
 CC      = cc
 CFLAGS  = -Wall -Wextra -Werror
 SRC     = client.c server.c utils.c
-BONUS_SRC = client_bonus.c server_bonus.c
+BONUS_SRC = client_bonus.c server_bonus.c utils.c
 TARGETS = client server
 BTARGETS = client_bonus server_bonus
-BDIR    = bonus
 
 all: $(TARGETS)
 
@@ -28,10 +27,10 @@ server: server.o utils.o
 
 bonus: $(BTARGETS)
 
-client_bonus: client_bonus.o
+client_bonus: client_bonus.o utils.o
 	$(CC) $(CFLAGS) utils.o $< -o $@
 
-server_bonus: server_bonus.o
+server_bonus: server_bonus.o utils.o
 	$(CC) $(CFLAGS) utils.o $< -o $@
 
 clean:
