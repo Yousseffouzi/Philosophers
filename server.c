@@ -30,7 +30,10 @@ void	handle_signal(int signal, siginfo_t *info, void *context)
 	if (bit_index == 8)
 	{
 		if (current_char == '\0')
+		{
+			ft_putchar_fd('\n', 1);
 			kill(info->si_pid, SIGUSR2);
+		}
 		write(1, &current_char, 1);
 		bit_index = 0;
 		current_char = 0;
@@ -38,25 +41,26 @@ void	handle_signal(int signal, siginfo_t *info, void *context)
 	else
 		current_char <<= 1;
 	kill(info->si_pid, SIGUSR1);
-	usleep(100);
+	usleep(200);
 }
 
 int	main(int ac, char **av)
 {
-	int					pid;
 	struct sigaction	sa;
 
 	(void)(**av);
 	sa.sa_sigaction = handle_signal;
-	sa.sa_flags = SA_SIGINFO;
+	sa.sa_flags = SA_SIGINFO | SA_RESTART;
 	sigemptyset(&sa.sa_mask);
-	pid = getpid();
-	ft_putnbr_fd(pid, 1);
-	ft_putchar_fd('\n', 1);
-	sigaction(SIGUSR1, &sa, NULL);
-	sigaction(SIGUSR2, &sa, NULL);
-	while (1337)
+	if (ac == 1)
 	{
-		pause();
+		ft_putnbr_fd(getpid(), 1);
+		ft_putchar_fd('\n', 1);
+		sigaction(SIGUSR1, &sa, NULL);
+		sigaction(SIGUSR2, &sa, NULL);
+		while (1337)
+		{
+			pause();
+		}
 	}
 }

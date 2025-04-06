@@ -21,43 +21,41 @@ void handler(int signal, siginfo_t *info, void *context)
 	if (signal == SIGUSR1)
 		g_sas = 1;
 	else if (signal == SIGUSR2)
-		write(1,"message recived",15);
+		ft_putstr_fd("message recived\n", 1);
 		
 }
 
-void	send_signal(int pid, unsigned char character)
+void send_signal(int pid, unsigned char c)
 {
-	int				i;
-	unsigned char	temp_char;
+    int i;
 
-	i = 8;
-	temp_char = character;
-	while (i > 0)
-	{
-		g_sas = 0;
-		i--;
-		temp_char = character >> i;
-		if (temp_char % 2 == 0)
-		{
-			if (kill(pid, SIGUSR2) == -1)
-				ft_putstr_fd("Error: Failed to send signal\n", 2);
-		}
-		else
-		{
-			if (kill(pid, SIGUSR1) == -1)
-				ft_putstr_fd("Error: Failed to send signal\n", 2);
-		}
-		while (!g_sas)
-			pause();
-		usleep(100);
-	}
+    i = 7;
+    while (i >= 0)
+    {
+        g_sas = 0;
+        if ((c >> i) & 1)
+        {
+            if (kill(pid, SIGUSR1) == -1)
+                ft_puterror_fd("Error: Failed to send SIGUSR1\n", 2);
+        }
+        else
+        {
+            if (kill(pid, SIGUSR2) == -1)
+                ft_puterror_fd("Error: Failed to send SIGUSR2\n", 2);
+        }
+        while (!g_sas)
+            pause();
+        usleep(200);
+        i--;
+    }
 }
+
 
 int	main(int argc, char *argv[])
 {
 	int			server_pid;
-	const char	*message;
 	int			i;
+	const char	*message;
 	struct sigaction	sa;
 
 
@@ -68,7 +66,7 @@ int	main(int argc, char *argv[])
 	sigaction(SIGUSR2, &sa, NULL);
 
 	if (argc != 3)
-		ft_putstr_fd("Usage: ./client <pid> <message>\n", 2);
+		ft_puterror_fd("Usage: ./client <pid> <message>\n", 2);
 	server_pid = ft_atoi(argv[1]);
 	if (server_pid <= 0)
 		exit(1);
@@ -76,7 +74,6 @@ int	main(int argc, char *argv[])
 	i = 0;
 	while (message[i])
 		send_signal(server_pid, message[i++]);
-	send_signal(server_pid, '\n');
 	send_signal(server_pid, '\0');
 	return (0);
 }

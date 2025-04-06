@@ -1,44 +1,27 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: yofouzi <marvin@42.fr>                     +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/04/04 13:25:47 by yofouzi           #+#    #+#              #
-#    Updated: 2025/04/04 13:25:51 by yofouzi          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 CC      = cc
 CFLAGS  = -Wall -Wextra -Werror
-SRC     = client.c server.c utils.c
-BONUS_SRC = client_bonus.c server_bonus.c utils.c
-TARGETS = client server
-BTARGETS = client_bonus server_bonus
+NAME1	= client
+NAME2	= server
+SRC_1   = client.c utils.c
+SRC_2   = server.c utils.c
+OBJ_1	= $(SRC_1:.c=.o)
+OBJ_2	= $(SRC_2:.c=.o)
 
-all: $(TARGETS)
 
-client: client.o utils.o
-	$(CC) $(CFLAGS) utils.o $< -o $@
+all: $(NAME1) $(NAME2)
 
-server: server.o utils.o
-	$(CC) $(CFLAGS) utils.o $< -o $@
+client: $(OBJ_1)
+	$(CC) $(CFLAGS) $(OBJ_1)  -o $(NAME1)
 
-bonus: $(BTARGETS)
-
-client_bonus: client_bonus.o utils.o
-	$(CC) $(CFLAGS) utils.o $< -o $@
-
-server_bonus: server_bonus.o utils.o
-	$(CC) $(CFLAGS) utils.o $< -o $@
+server: $(OBJ_2)
+	$(CC) $(CFLAGS) $(OBJ_2)  -o $(NAME2)
 
 clean:
-	rm -f client.o server.o utils.o client_bonus.o server_bonus.o
+	rm -f $(OBJ_1) $(OBJ_2)
 
 fclean: clean
-	rm -f $(TARGETS) $(BTARGETS) clean
+	rm -f $(NAME1) $(NAME2)
 
 re: fclean all
 
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re
