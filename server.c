@@ -26,14 +26,10 @@ void	handle_signal(int signal, siginfo_t *info, void *context)
 		bit_index = 0;
 	}
 	current_char |= (signal == SIGUSR1);
-	bit_index++;
-	if (bit_index == 8)
+	if (++bit_index == 8)
 	{
 		if (current_char == '\0')
-		{
-			ft_putchar_fd('\n', 1);
 			kill(info->si_pid, SIGUSR2);
-		}
 		write(1, &current_char, 1);
 		bit_index = 0;
 		current_char = 0;
