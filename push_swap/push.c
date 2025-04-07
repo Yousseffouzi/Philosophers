@@ -12,8 +12,6 @@
 
 #include "push_swap.h"
 
-#include "push_swap.h"
-
 void	push(t_list **x, t_list **y)
 {
 	t_list	*stx;

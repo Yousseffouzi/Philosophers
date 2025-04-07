@@ -49,7 +49,7 @@ int	*sorted(t_list *a)
 
 	i = 0;
 	j = ft_lstsize(a);
-	if(!(arr = malloc(sizeof(int) * j)))
+	if (!(arr = malloc(sizeof(int) * j)))
 		return (NULL);
 	while (a)
 	{

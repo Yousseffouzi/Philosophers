@@ -12,32 +12,6 @@
 
 #include "push_swap.h"
 
-void    fill_stack(t_list **a, char **av)
-{
-    int     i;
-    int     j;
-    char    **arg;
-
-    j = 1;
-    while(av[j])
-    {
-        if (!ft_checkargs(av[j]))
-			(ft_lstclear(a), write(2, "Error\n", 6), exit(1));
-        arg = ft_split(av[1], ' ');
-        i = 0;
-        while(arg[i])
-        {
-            ft_lstadd_back(a, ft_lstnew(ft_atoi(arg[i], args, a)));
-            if(check_dup(*a) == 0)
-                ft_error(a, arg);
-            i++;
-        }
-        ft_free(arg);
-        j++;
-    }
-}
-
-
 long	ft_atoi(const char *nb, char **args, t_list **a)
 {
 	int		i;
@@ -60,21 +34,21 @@ long	ft_atoi(const char *nb, char **args, t_list **a)
 		k = k * 10 + (nb[i] - 48);
 		i++;
 	}
-	if ((k * j) >= 2147483648 || (k * j) <= -2147483649)
+	if ((k * j) >= 2147483647 || (k * j) <= -2147483648)
 		ft_error(a, args);
 	return (j * k);
 }
 
-int ft_checkarg(char *av)
+int	ft_checkargs(char *av)
 {
-    int i;
-    int f;
+	int	i;
+	int	f;
 
-    i = 0;
-    f = 0;
-    while(av[i])
-    {
-        if (!((av[i] >= '0' && av[i] <= '9') || av[i] == ' ' || av[i] == '+'
+	i = 0;
+	f = 0;
+	while (av[i])
+	{
+		if (!((av[i] >= '0' && av[i] <= '9') || av[i] == ' ' || av[i] == '+'
 				|| av[i] == '-'))
 			return (0);
 		if ((av[i] >= '0' && av[i] <= '9'))
@@ -90,6 +64,34 @@ int ft_checkarg(char *av)
 				return (0);
 		}
 		i++;
-    }
-    return (f)
+	}
+	return (f);
+}
+
+void	fill_stack(t_list **a, char **av)
+{
+	t_list	*new;
+	int		i;
+	int		j;
+	char	**arg;
+
+	j = 1;
+	while (av[j])
+	{
+		if (!ft_checkargs(av[j]))
+			(ft_lstclear(a), write(2, "Error\n", 6), exit(1));
+		arg = ft_split(av[j], ' ');
+		i = 0;
+		while (arg[i])
+		{
+			if (!(new = ft_lstnew(ft_atoi(arg[i], arg, a))))
+				ft_error(a, arg);
+			ft_lstadd_back(a, new);
+			if (check_dup(*a) == 0)
+				ft_error(a, arg);
+			i++;
+		}
+		ft_free(arg);
+		j++;
+	}
 }

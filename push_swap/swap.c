@@ -12,25 +12,25 @@
 
 #include "push_swap.h"
 
-void    swap(t_list **t)
+void	swap(t_list **t)
 {
-    t_list *st;
-    t_list *nd;
+	t_list	*st;
+	t_list	*nd;
 
-    if (!*t || !(*t)->next)
-        return ;
-    st = *t;
-    nd = st->next;
-    st->next = nd->next;
-    nd->next = st;
-    *t = nd;
+	if (!*t || !(*t)->next)
+		return ;
+	st = *t;
+	nd = st->next;
+	st->next = nd->next;
+	nd->next = st;
+	*t = nd;
 }
 
-void    sa(t_list **a, int flag)
+void	sa(t_list **a, int flag)
 {
-    swap(a);
-    if(flag == 0)
-        write(1, "sa\n", 3);
+	swap(a);
+	if (flag == 0)
+		write(1, "sa\n", 3);
 }
 
 void	sb(t_list **b, int flag)

@@ -51,3 +51,40 @@ char	**ft_free(char **str)
 	free(str);
 	return (NULL);
 }
+
+void	*ft_calloc(size_t num, size_t size)
+{
+	void	*ptr;
+
+	if (num != 0 && size > SIZE_MAX / num)
+		return (NULL);
+	ptr = malloc(num * size);
+	if (ptr == NULL)
+		return (NULL);
+	ft_bzero(ptr, num * size);
+	return (ptr);
+}
+
+size_t	ft_strlen(const char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+void	ft_bzero(void *s, size_t n)
+{
+	size_t i;
+	unsigned char *str;
+
+	i = 0;
+	str = (unsigned char *)s;
+	while (i < n)
+	{
+		str[i] = 0;
+		i++;
+	}
+}

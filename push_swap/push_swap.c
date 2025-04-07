@@ -12,29 +12,32 @@
 
 #include "push_swap.h"
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-    t_list  *a;
-    t_list  *b;
-    t_list  *trash;
+	t_list *a;
+	t_list *b;
+	t_list *trash;
 
-    a = NULL;
-    b = NULL;
-    if (ac == 1)
-        return (0);
-    fill_stack(&a, av)
-    if(check_sort(a) == 1)
-        return(ft_lstclear(&a), 0);
-    if(lstsize(a) <= 3)
-        sort_3(&a);
-    if(lstsize(a) <= 5)
-        sort_5(&a, &b);
-    else
-        sort_all(&a, &b, sorted(a), ft_lstsize(a));
-    while(a)
-    {
-        trash = a;
-        a = a->next;
-        free(trash);
-    }
+	a = NULL;
+	b = NULL;
+	if (ac == 1)
+		return (0);
+	fill_stack(&a, av);
+	if (check_sort(a) == 1)
+	{
+		ft_lstclear(&a);
+		return (0);
+	}
+	if (ft_lstsize(a) <= 3)
+		sort_3(&a);
+	else if (ft_lstsize(a) <= 5)
+		sort_5(&a, &b);
+	else
+		sort_all(&a, &b, sorted(a), ft_lstsize(a));
+	while (a)
+	{
+		trash = a;
+		a = a->next;
+		free(trash);
+	}
 }
