@@ -1,7 +1,7 @@
 CC = cc
 NAME = push_swap
 CFLAGS = -Wall -Wextra -Werror
-SRC = ft_split.c push.c push_swap.h rotate.c sort_5.c sort_arr.c utils_push_swap.c check.c linked_list.c \
+SRC = ft_split.c push.c rotate.c sort_5.c sort_arr.c utils_push_swap.c check.c linked_list.c \
 		push_swap.c r_rotate.c sort_3.c sort_all.c swap.c utils_split.c
 OBJ = $(SRC:.c=.o)
 
@@ -11,7 +11,7 @@ $(NAME) : $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 
 clean :
-	rm -f *.o
+	rm -f $(OBJ)
 
 fclean : clean
 	rm -f $(NAME)

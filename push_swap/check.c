@@ -27,7 +27,7 @@ int	check_dup(t_list *a)
 {
 	t_list	*check;
 
-	while (a)
+	while (a->next)
 	{
 		check = a->next;
 		while (check)

@@ -56,6 +56,7 @@ void	sort_5(t_list **a, t_list **b)
 			while (i++ <= ft_lstsize(*a))
 				rra(a, 0);
 		}
+		pb(a, b, 0);
 	}
 	sort_3(a);
 	pa(a, b, 0);

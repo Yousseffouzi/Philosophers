@@ -41,7 +41,7 @@ void	sort_3(t_list **a)
 	int	big;
 
 	big = big_node(*a);
-	if (big == 3)
+	if (big == 1)
 	{
 		ra(a, 0);
 		if (check_sort(*a) == 0)

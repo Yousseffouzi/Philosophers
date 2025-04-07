@@ -28,7 +28,7 @@ void	range_up(int *s, int *e, int size)
 {
 	if (*s < *e)
 		*s += 1;
-	if (*e > size - 1)
+	if (*e < size - 1)
 		*e += 1;
 }
 
@@ -77,12 +77,12 @@ void	sort_all(t_list **a, t_list **b, int *arr, int size)
 	rang = size / get_range(a);
 	s = 0;
 	e = rang;
-	while (a)
+	while (*a)
 	{
 		if ((*a)->content <= arr[s])
 		{
 			pb(a, b, 0);
-			if ((*a)->next != NULL)
+			if ((*b)->next != NULL)
 				rb(b, 0);
 			range_up(&s, &e, size);
 		}
