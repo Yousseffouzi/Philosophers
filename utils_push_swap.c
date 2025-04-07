@@ -84,7 +84,8 @@ void	fill_stack(t_list **a, char **av)
 		i = 0;
 		while (arg[i])
 		{
-			if (!(new = ft_lstnew(ft_atoi(arg[i], arg, a))))
+			new = ft_lstnew(ft_atoi(arg[i], arg, a));
+			if (!new)
 				ft_error(a, arg);
 			ft_lstadd_back(a, new);
 			if (check_dup(*a) == 0)

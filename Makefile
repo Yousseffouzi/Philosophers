@@ -1,27 +1,21 @@
-CC      = cc
-CFLAGS  = -Wall -Wextra -Werror
-NAME1	= client
-NAME2	= server
-SRC_1   = client.c utils.c
-SRC_2   = server.c utils.c
-OBJ_1	= $(SRC_1:.c=.o)
-OBJ_2	= $(SRC_2:.c=.o)
+CC = cc
+NAME = push_swap
+CFLAGS = -Wall -Wextra -Werror
+SRC = ft_split.c push.c rotate.c sort_5.c sort_arr.c utils_push_swap.c check.c linked_list.c \
+		push_swap.c r_rotate.c sort_3.c sort_all.c swap.c utils_split.c
+OBJ = $(SRC:.c=.o)
 
+all : $(NAME)
 
-all: $(NAME1) $(NAME2)
+$(NAME) : $(OBJ)
+	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 
-client: $(OBJ_1)
-	$(CC) $(CFLAGS) $(OBJ_1)  -o $(NAME1)
+clean :
+	rm -f $(OBJ)
 
-server: $(OBJ_2)
-	$(CC) $(CFLAGS) $(OBJ_2)  -o $(NAME2)
+fclean : clean
+	rm -f $(NAME)
 
-clean:
-	rm -f $(OBJ_1) $(OBJ_2)
+re : fclean all
 
-fclean: clean
-	rm -f $(NAME1) $(NAME2)
-
-re: fclean all
-
-.PHONY: all clean fclean re
+.PHONY : all clean fclean re

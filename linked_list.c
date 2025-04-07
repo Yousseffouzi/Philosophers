@@ -63,8 +63,8 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 
 void	ft_lstclear(t_list **lst)
 {
-	t_list *curr;
-	t_list *trash;
+	t_list		*curr;
+	t_list		*trash;
 
 	curr = *lst;
 	while (curr)

@@ -14,9 +14,9 @@
 
 int	main(int ac, char **av)
 {
-	t_list *a;
-	t_list *b;
-	t_list *trash;
+	t_list		*a;
+	t_list		*b;
+	t_list		*trash;
 
 	a = NULL;
 	b = NULL;
@@ -24,10 +24,7 @@ int	main(int ac, char **av)
 		return (0);
 	fill_stack(&a, av);
 	if (check_sort(a) == 1)
-	{
-		ft_lstclear(&a);
-		return (0);
-	}
+		return (ft_lstclear(&a), 0);
 	if (ft_lstsize(a) <= 3)
 		sort_3(&a);
 	else if (ft_lstsize(a) <= 5)
