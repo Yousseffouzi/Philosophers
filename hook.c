@@ -60,7 +60,7 @@ int	key_hook(int keycode, t_fractal *fractol)
 		fractol->offset_x -= move_amount;
 	else if (keycode == 65363)
 		fractol->offset_x += move_amount;
-	else if (keycode == 6536)
+	else if (keycode == 65362)
 		fractol->offset_y -= move_amount;
 	else if (keycode == 65364)
 		fractol->offset_y += move_amount;
