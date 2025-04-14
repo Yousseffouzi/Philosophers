@@ -16,9 +16,7 @@ int	get_color(int iter, int max_iter, t_fractal *fractol)
 {
 	if (iter == max_iter)
 		return (0x000000);
-
 	int r, g, b;
-
 	if (fractol->color_mode == 0)
 	{
 		r = (iter * 4) % 256;
@@ -64,22 +62,21 @@ int	get_color(int iter, int max_iter, t_fractal *fractol)
 	return ((r << 16) | (g << 8) | b);
 }
 
-
-
 int	key_hook(int keycode, t_fractal *fractol)
 {
-	double		move_amount = 0.2 / fractol->zoom;
+	double	move_amount;
 
+	move_amount = 0.2 / fractol->zoom;
 	if (keycode == 65307)
 	{
-        mlx_destroy_image(fractol->mlx_connection, fractol->imag);
+		mlx_destroy_image(fractol->mlx_connection, fractol->imag);
 		mlx_destroy_window(fractol->mlx_connection, fractol->window);
 		mlx_destroy_display(fractol->mlx_connection);
 		free(fractol->mlx_connection);
 		exit(0);
 	}
 	else if (keycode == 32)
-		fractol->color_mode = (fractol->color_mode + 1) % 10;
+		fractol->color_mode = (fractol->color_mode + 1) % 6;
 	else if (keycode == 65361) // Left arrow
 		fractol->offset_x -= move_amount;
 	else if (keycode == 65363) // Right arrow
@@ -94,10 +91,9 @@ int	key_hook(int keycode, t_fractal *fractol)
 
 int	close_window(t_fractal *fractol)
 {
-    mlx_destroy_image(fractol->mlx_connection,fractol->imag);
-    mlx_destroy_window(fractol->mlx_connection, fractol->window);
-    mlx_destroy_display(fractol->mlx_connection);
-    free(fractol->mlx_connection);
+	mlx_destroy_image(fractol->mlx_connection, fractol->imag);
+	mlx_destroy_window(fractol->mlx_connection, fractol->window);
+	mlx_destroy_display(fractol->mlx_connection);
+	free(fractol->mlx_connection);
 	exit(1);
 }
-

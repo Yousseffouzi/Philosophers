@@ -1,33 +1,30 @@
-NAME = fractol
-
 CC = cc
-
 CFLAGS = -Wall -Wextra -Werror
+NAME = fractol
+SRC = fractol.c ft_atof.c hook.c init_fractal.c julia.c mandelbrot.c utils.c zoom.c
+OBJ = $(SRC:.c=.o)
 
-SRCS = fractal.c mandelbrot.c utile.c julia.c mlx_init.c Zoom.c utile_2.c ft_atof.c
+MLX_PATH = ./minilibx-linux
+MLX_FLAGS = -L$(MLX_PATH) -lmlx -lX11 -lXext -lm
 
-OBJS = $(SRCS:.c=.o)
+all : $(NAME)
 
-MLX_DIR = ./minilibx-linux
-MLX_FLAGS = -L$(MLX_DIR) -lmlx -lX11 -lXext -lm
+$(NAME) : $(OBJ)
+	@make -C $(MLX_PATH)
+	$(CC) $(CFLAGS) $(OBJ) $(MLX_FLAGS) -o $(NAME)
 
-all: $(NAME)
-
-$(NAME): $(OBJS)
-	@make -C $(MLX_DIR)
-	$(CC) $(CFLAGS) $(OBJS) $(MLX_FLAGS) -o $(NAME)
+#$(MLX_LIB): 
+#	@make -C $(MLX_PATH)
 
 clean:
-	rm -f $(OBJS)
+	rm -f $(OBJ)
 
 fclean: clean
 	rm -f $(NAME)
-	@make clean -C $(MLX_DIR)
+	@make -C $(MLX_PATH) clean
 
 re: fclean all
 
-$(OBJS): fractal.h
-
 .PHONY: all clean fclean re
 
-.SECONDARY : $(OBJS)
+.SECONDARY : $(OBJ)

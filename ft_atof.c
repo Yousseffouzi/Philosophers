@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atof.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ykhoussi <ykhoussi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yofouzi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/11 21:41:43 by ykhoussi          #+#    #+#             */
-/*   Updated: 2025/04/11 22:16:29 by ykhoussi         ###   ########.fr       */
+/*   Created: 2025/04/13 22:59:27 by yofouzi           #+#    #+#             */
+/*   Updated: 2025/04/13 22:59:29 by yofouzi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractal.h"
+#include "fractol.h"
 
-double	parse_integer_part(const char **str, int *check)
+static double	parse_integer_part(const char **str, int *check)
 {
 	double	result;
 
@@ -26,7 +26,7 @@ double	parse_integer_part(const char **str, int *check)
 	return (result);
 }
 
-double	parse_fractional_part(const char **str)
+static double	parse_fractional_part(const char **str)
 {
 	double	result;
 	double	divisor;
@@ -46,7 +46,7 @@ double	parse_fractional_part(const char **str)
 	return (result);
 }
 
-double	ft_atof(const char *str, t_data *data)
+double	ft_atof(const char *str, t_fractal *fractol)
 {
 	double	sign;
 	double	result;
@@ -57,13 +57,13 @@ double	ft_atof(const char *str, t_data *data)
 	check = 0;
 	if (*str == '-' || *str == '+')
 	{
-		if(*str == '-' )
+		if (*str == '-')
 			sign = -1.0;
 		str++;
 	}
 	result += parse_integer_part(&str, &check);
 	result += parse_fractional_part(&str);
 	if (*str || !check || result > 2.0 || result < -2.0)
-		failed(data);
+		failed(fractol);
 	return (result * sign);
 }

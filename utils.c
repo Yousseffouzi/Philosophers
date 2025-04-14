@@ -12,14 +12,17 @@
 
 #include "fractol.h"
 
-int	ft_strcmp(char *s1, char *s2)
+int	ft_strncmp(char *s1, char *s2, int n)
 {
-	int	i;
-
-	i = 0;
-	while (s1[i] && s2[i] && s1[i] == s2[i])
-		i++;
-	return (s1[i] - s2[i]);
+	if (NULL == s1 || NULL == s2 || n <= 0)
+		return (0);
+	while (*s1 == *s2 && n > 0 && *s1 != '\0')
+	{
+		++s1;
+		++s2;
+		--n;
+	}
+	return (*s1 - *s2);
 }
 
 void	ft_putstr_fd(char *s, int fd)
@@ -37,23 +40,21 @@ void	ft_putstr_fd(char *s, int fd)
 	}
 }
 
-void   error_message()
+void	error_message(void)
 {
-    ft_putstr_fd("Error: Invalid input or initialization failed.\n", 2);
-    ft_putstr_fd("Usage: ./fractol [fractol_name]\n", 2);
-    ft_putstr_fd("Available fractals: mandelbrot\n", 2);
-    ft_putstr_fd("Available fractals: julia <set> <set>\n", 2);
-    exit(1);
+	ft_putstr_fd("Error: Invalid input or initialization failed.\n", 2);
+	ft_putstr_fd("Usage: ./fractol [fractol_name]\n", 2);
+	ft_putstr_fd("Available fractals: mandelbrot\n", 2);
+	ft_putstr_fd("Available fractals: julia <set> <set>\n", 2);
+	exit(1);
 }
 
 int	failed(t_fractal *fractol)
 {
-    mlx_destroy_image(fractol->mlx_connection,fractol->imag);
-    mlx_destroy_window(fractol->mlx_connection, fractol->window);
-    mlx_destroy_display(fractol->mlx_connection);
-    free(fractol->mlx_connection);
+	mlx_destroy_image(fractol->mlx_connection, fractol->imag);
+	mlx_destroy_window(fractol->mlx_connection, fractol->window);
+	mlx_destroy_display(fractol->mlx_connection);
+	free(fractol->mlx_connection);
 	error_message();
 	exit(1);
 }
-
-
