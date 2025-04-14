@@ -6,7 +6,7 @@
 /*   By: yofouzi <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 22:59:27 by yofouzi           #+#    #+#             */
-/*   Updated: 2025/04/13 22:59:29 by yofouzi          ###   ########.fr       */
+/*   Updated: 2025/04/14 17:31:32 by yofouzi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ double	ft_atof(const char *str, t_fractal *fractol)
 	double	result;
 	int		check;
 
+	if (*str == '\0')
+		failed(fractol);
 	sign = 1.0;
 	result = 0.0;
 	check = 0;
@@ -65,7 +67,7 @@ double	ft_atof(const char *str, t_fractal *fractol)
 	}
 	result += parse_integer_part(&str, &check);
 	result += parse_fractional_part(&str);
-	if (*str || !check || result > 2.0 || result < -2.0)
+	if (*str || !check)
 		failed(fractol);
 	return (result * sign);
 }
