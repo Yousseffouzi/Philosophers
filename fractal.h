@@ -46,7 +46,7 @@ typedef struct s_data
 }	t_data;
 
 int		ft_strcmp(char *s1, char *s2);
-t_data	init_mlx_window(void);
+t_data	*init_mlx_window(t_data *data);
 void	julia(t_data *data, double real, double imag);
 void	mandelbrot(t_data *data);
 int		key_hook(int keycode, t_data *data);

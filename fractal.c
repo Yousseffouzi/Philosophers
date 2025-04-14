@@ -15,7 +15,7 @@
 void	init_julia(t_data *data, char *s, char *s2)
 {
 	double (real), (imag);
-	*data = init_mlx_window();
+	data = init_mlx_window(data);
 	real = ft_atof(s, data);
 	imag = ft_atof(s2, data);
 	data->fractal_type = 1;
@@ -24,7 +24,7 @@ void	init_julia(t_data *data, char *s, char *s2)
 
 void	execute_mandelbrot(t_data *data)
 {
-	*data = init_mlx_window();
+	data = init_mlx_window(data);
 	data->fractal_type = 0;
 	mandelbrot(data);
 }
