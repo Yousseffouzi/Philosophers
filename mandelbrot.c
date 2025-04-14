@@ -16,7 +16,7 @@ int	mandelbrot_iteration(double real, double img, int max_iter)
 {
 	int	iter;
 
-	double(z_real), (z_img), (tmp);
+	double (z_real), (z_img), (tmp);
 	z_real = 0.0;
 	z_img = 0.0;
 	tmp = 0.0;
@@ -41,8 +41,8 @@ void	my_pixel_put(t_fractal *fractol, int x, int y, int color)
 
 void	mandelbrot(t_fractal *fractol)
 {
-	int x, y, iter, color;
-	double real, imag;
+	int (x), (y), (iter), (color);
+	double (real), (imag);
 	iter = 0;
 	color = 0;
 	real = 0.0;

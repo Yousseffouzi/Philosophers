@@ -31,8 +31,8 @@ int	julia_iter(double z_real, double z_img, double c_real, double c_img)
 
 void	julia(t_fractal *fractol, double real, double img)
 {
-	int(x), (y), (iter), (color);
-	double(z_real), (z_imag);
+	int (x), (y), (iter), (color);
+	double (z_real), (z_imag);
 	fractol->c_real = real;
 	fractol->c_img = img;
 	z_real = 0.0;

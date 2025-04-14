@@ -28,7 +28,7 @@ typedef struct s_fractal
 	void	*window;
 	void	*imag;
 	char	*addr;
-	int bpp; // bits per pixel
+	int		bpp; // bits per pixel
 	int		endian;
 	int		line_len;
 	int		name;

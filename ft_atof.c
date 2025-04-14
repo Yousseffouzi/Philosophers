@@ -55,6 +55,8 @@ double	ft_atof(const char *str, t_fractal *fractol)
 	sign = 1.0;
 	result = 0.0;
 	check = 0;
+	while (*str <= 32)
+		str++;
 	if (*str == '-' || *str == '+')
 	{
 		if (*str == '-')

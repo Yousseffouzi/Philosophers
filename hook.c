@@ -14,9 +14,12 @@
 
 int	get_color(int iter, int max_iter, t_fractal *fractol)
 {
+	int		r;
+	int		g;
+	int		b;
+
 	if (iter == max_iter)
 		return (0x000000);
-	int r, g, b;
 	if (fractol->color_mode == 0)
 	{
 		r = (iter * 4) % 256;
@@ -28,30 +31,6 @@ int	get_color(int iter, int max_iter, t_fractal *fractol)
 		r = (iter * 25) % 256;
 		g = (iter * 50) % 256;
 		b = (iter * 100) % 256;
-	}
-	else if (fractol->color_mode == 2)
-	{
-		r = (iter * 255) % 256;
-		g = (iter * 94) % 256;
-		b = (iter * 77) % 256;
-	}
-	else if (fractol->color_mode == 3)
-	{
-		r = (iter * 3) % 256;
-		g = (iter * 13) % 256;
-		b = (iter * 17) % 256;
-	}
-	else if (fractol->color_mode == 4)
-	{
-		r = (iter * 21) % 256;
-		g = (iter * 11) % 256;
-		b = (iter * 3) % 256;
-	}
-	else if (fractol->color_mode == 5)
-	{
-		r = (iter * 30) % 256;
-		g = (iter * 15) % 256;
-		b = (iter * 10) % 256;
 	}
 	else
 	{
@@ -76,16 +55,16 @@ int	key_hook(int keycode, t_fractal *fractol)
 		exit(0);
 	}
 	else if (keycode == 32)
-		fractol->color_mode = (fractol->color_mode + 1) % 6;
-	else if (keycode == 65361) // Left arrow
+		fractol->color_mode = (fractol->color_mode + 1) % 3;
+	else if (keycode == 65361)
 		fractol->offset_x -= move_amount;
-	else if (keycode == 65363) // Right arrow
+	else if (keycode == 65363)
 		fractol->offset_x += move_amount;
-	else if (keycode == 65362) // Up arrow
+	else if (keycode == 6536)
 		fractol->offset_y -= move_amount;
-	else if (keycode == 65364) // Down arrow
+	else if (keycode == 65364)
 		fractol->offset_y += move_amount;
-	update_f(fractol); // Redraw fractal after movement
+	update_f(fractol);
 	return (0);
 }
 

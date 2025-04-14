@@ -33,9 +33,9 @@ void	update_f(t_fractal *fractol)
 
 int	m_zoom(int button, int x, int y, t_fractal *fractol)
 {
-	double(mouse_real), (mouse_imag);
-	double(old_min_real), (old_max_real);
-	double(old_min_imag), (old_max_imag);
+	double (mouse_real), (mouse_imag);
+	double (old_min_real), (old_max_real);
+	double (old_min_imag), (old_max_imag);
 	old_min_real = fractol->min_real;
 	old_max_real = fractol->max_real;
 	old_min_imag = fractol->min_imag;

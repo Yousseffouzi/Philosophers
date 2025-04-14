@@ -9,12 +9,11 @@ MLX_FLAGS = -L$(MLX_PATH) -lmlx -lX11 -lXext -lm
 
 all : $(NAME)
 
-$(NAME) : $(OBJ)
-	@make -C $(MLX_PATH)
+$(NAME) : $(MLX_PATH) $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) $(MLX_FLAGS) -o $(NAME)
 
-#$(MLX_LIB): 
-#	@make -C $(MLX_PATH)
+$(MLX_LIB): 
+	@make -C $(MLX_PATH)
 
 clean:
 	rm -f $(OBJ)
