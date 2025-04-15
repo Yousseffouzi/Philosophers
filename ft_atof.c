@@ -26,7 +26,7 @@ static double	parse_integer_part(const char **str, int *check)
 	return (result);
 }
 
-static double	parse_fractional_part(const char **str)
+static double	parse_fractional_part(const char **str, t_fractal *fractol)
 {
 	double	result;
 	double	divisor;
@@ -36,6 +36,8 @@ static double	parse_fractional_part(const char **str)
 	if (**str == '.')
 	{
 		(*str)++;
+		if (**str == '\0')
+			failed(fractol);
 		while (**str >= '0' && **str <= '9')
 		{
 			result += (**str - '0') / divisor;
@@ -66,7 +68,7 @@ double	ft_atof(const char *str, t_fractal *fractol)
 		str++;
 	}
 	result += parse_integer_part(&str, &check);
-	result += parse_fractional_part(&str);
+	result += parse_fractional_part(&str, fractol);
 	if (*str || !check)
 		failed(fractol);
 	return (result * sign);
