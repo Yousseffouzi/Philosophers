@@ -25,7 +25,7 @@ void	thinking(t_philo *philo)
 	t_think = t_eat * 2 - t_sleep;
 	if (t_think < 0)
 		t_think = 0;
-	precise_usleep(t_think * 0.5, philo->table);
+	precise_usleep(t_think * 0.4, philo->table);
 }
 
 void	eat(t_philo *philo)
@@ -82,7 +82,6 @@ void	start_dinner(t_table *table)
 		pthread_join(table->philos[0].thread_id, NULL);
 		return ;
 	}
-	i = -1;
 	while (++i < table->philo_nbr)
 		pthread_create(&table->philos[i].thread_id, NULL, dinner_simulation,
 			&table->philos[i]);
