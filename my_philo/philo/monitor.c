@@ -54,7 +54,7 @@ void	*monitor_simulation(void *data)
 	while (!simulation_finished(table))
 	{
 		i = -1;
-		while (i++ < table->philo_nbr && !simulation_finished(table))
+		while (++i < table->philo_nbr && !simulation_finished(table))
 		{
 			if (philo_died(table->philos + i))
 			{
